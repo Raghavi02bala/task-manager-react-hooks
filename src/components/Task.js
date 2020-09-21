@@ -1,18 +1,19 @@
-import React from 'react'
+import React from 'react';
 
-function Task() {
+const Task = ({task}) => {
     return (
         <li className="list-item">
-            <span>Task title</span>
-            <div>
-                <button className="btn-delete task-btn">
-                   <i className="fas fa-trash-alt"></i> 
-                </button>
-                <button className="btn-delete task-btn">
-                   <i className="fas fa-pen"></i> 
-                </button>
-            </div>
-        </li>
+      <span>{task.task} </span>
+      <div>
+        <button
+          className="btn-delete task-btn">
+          <i className="fas fa-trash-alt"></i>
+        </button>{' '}
+        <button className="btn-edit task-btn">
+          <i className="fas fa-pen"></i>
+        </button>
+      </div>
+    </li>
     );
 }
 
