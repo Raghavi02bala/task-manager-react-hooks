@@ -6,11 +6,16 @@ export const TaskListContext = createContext()
 // This is just a component tat will include this state , again const name can be anything
 const TaskListContextProvider = props => {
     const [tasks, setTasks] = useState([ 
-        {task:'Read the book', id:1},
-        {task:'Wash the car', id:2},
-        {task:'Write some Code', id:3},
-        {task:'Write Letter', id:4}
+        {title:'Read the book', id:1},
+        {title:'Wash the car', id:2},
+        {title:'Write some Code', id:3},
+        {title:'Write Letter', id:4}
     ]);
+
+    const addTask = (title) =>{
+        // ...(3dots),spread operator
+        setTasks([...tasks,{title,id:}])
+    }
 
     return(
         <TaskListContext.Provider value={{tasks}}>
