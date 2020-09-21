@@ -14,7 +14,7 @@ const TaskListContextProvider = props => {
 
     const addTask = (title) =>{
         // ...(3dots),spread operator
-        setTasks([...tasks,{title,id:}])
+        setTasks([...tasks,{title,id:2}])
     }
 
     return(
