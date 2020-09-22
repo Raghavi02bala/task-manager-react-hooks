@@ -19,7 +19,7 @@ const TaskForm = () => {
         // the defualt action of the submit button is tat it reloads the page, here we're 
         // preventing the defualt action of reloading
         e.preventDefault();
-        if(editItem === null){
+        if(!editItem){
             addTask(title);
             setTitle("");
         } else{
@@ -29,7 +29,7 @@ const TaskForm = () => {
     };
 
     useEffect(() => {
-        if(editItem !== null){
+        if(editItem){
             setTitle(editItem.title);
             console.log(editItem);
         }
@@ -56,7 +56,7 @@ const TaskForm = () => {
                 type="submit" 
                 className="btn
                 add-task-btn">
-                    Add Task
+                    {editItem ? 'Edit Task' : 'Add Task'}
                 </button>
                 <button
                 onClick={clearList} 

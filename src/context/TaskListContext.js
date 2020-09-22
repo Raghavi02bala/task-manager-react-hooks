@@ -1,4 +1,4 @@
-import React, { createContext, useState } from 'react';
+import React, { createContext, useState, useEffect } from 'react';
 import  uuid  from 'uuid';
 
 // the const name can be anything ,and this line will create a context for it.
@@ -6,12 +6,19 @@ export const TaskListContext = createContext()
 
 // This is just a component tat will include this state , again const name can be anything
 const TaskListContextProvider = props => {
-    const [tasks, setTasks] = useState([ 
-        {title:'Read the book', id:1},
-        {title:'Wash the car', id:2},
-        {title:'Write some Code', id:3},
-        {title:'Write Letter', id:4}
-    ]);
+    // even though i pass an empty array and store, it disappears after refreshing.so this is to store the array
+    // getItem , gts the array frm local storage and stores it as initial state
+    const initialState = JSON.parse(localStorage.getItem('tasks')) || []    
+
+    const [tasks, setTasks] = useState(initialState);
+
+    useEffect(() =>{
+        // we are storing the tasks localy , and it takes 2 args ,one is the titile and 
+        // the other is the arry
+        // here we have converted the array to JSON format
+        localStorage.setItem('tasks',JSON.stringify(tasks))
+
+    },[tasks]);
 
     const [editItem, setEditItem] = useState(null)
 
@@ -39,6 +46,7 @@ const TaskListContextProvider = props => {
     const editTask = (title,id) =>{
         const newTasks = tasks.map(task => (task.id === id ? {title,id}: task));
         setTasks(newTasks);
+        setEditItem(null);
     };
 
     return(
