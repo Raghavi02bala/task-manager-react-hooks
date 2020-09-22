@@ -1,4 +1,5 @@
-import React, { createContext, useState } from 'react'
+import React, { createContext, useState } from 'react';
+import { v1 as uuid } from 'uuid';
 
 // the const name can be anything ,and this line will create a context for it.
 export const TaskListContext = createContext()
@@ -12,13 +13,18 @@ const TaskListContextProvider = props => {
         {title:'Write Letter', id:4}
     ]);
 
-    const addTask = (title) =>{
+    const addTask = title =>{
         // ...(3dots),spread operator
-        setTasks([...tasks,{title,id:2}])
+        setTasks([...tasks,{ title, id: uuid() }])
     }
 
+    const removeTask = id =>{
+        // the array is filtered. It's returned only when it's id is not equal to this id.
+        setTasks(tasks.filter(task => task.id!==id))
+    } 
+
     return(
-        <TaskListContext.Provider value={{tasks}}>
+        <TaskListContext.Provider value={{tasks, addTask, removeTask}}>
             {props.children}            
         </TaskListContext.Provider>
     )
