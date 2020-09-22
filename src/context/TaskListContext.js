@@ -37,7 +37,7 @@ const TaskListContextProvider = props => {
     };
     // to edit the item
     const editTask = (title,id) =>{
-        const newTasks = tasks.map(task => (task.id === id ? (title,id): task));
+        const newTasks = tasks.map(task => (task.id === id ? {title,id}: task));
         setTasks(newTasks);
     };
 
