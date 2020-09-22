@@ -1,9 +1,9 @@
-import React,{useContext,useState} from 'react';
+import React,{useContext, useState, useEffect} from 'react';
 import {TaskListContext} from "../context/TaskListContext";
 
 function TaskForm() {
     // destructuring array in js
-    const { addTask } = useContext(TaskListContext);
+    const { addTask, clearList, editTask, editItem } = useContext(TaskListContext);
     
     // we need to set the current state , so we're using state and we will also use to update the state
 
@@ -19,11 +19,27 @@ function TaskForm() {
         // the defualt action of the submit button is tat it reloads the page, here we're 
         // preventing the defualt action of reloading
         e.preventDefault();
-        addTask(title);
-        setTitle("");       
+        if(editItem === null){
+            addTask(title);
+            setTitle("");
+        } else{
+            editTask(title,editItem.id);
+        }       
 
     };
+
+    useEffect(() => {
+        if(editItem !== null){
+            setTitle(editItem.title);
+            console.log(editItem);
+        }
+        else{
+            setTitle("");
+        }
+    }, [editItem]);
     
+    // vv.imp We have not done anything to task button, if u click both buttons the title will be added
+    // coz it is done for the whole form, we have just overiden the clear button onClick
 
     return (
         <form onSubmit={handleSubmit} className="form">
@@ -42,7 +58,9 @@ function TaskForm() {
                 add-task-btn">
                     Add Task
                 </button>
-                <button className="btn
+                <button
+                onClick={clearList} 
+                className="btn
                 clear-btn">
                     Clear
                 </button>

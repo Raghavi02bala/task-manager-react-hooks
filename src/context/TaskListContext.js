@@ -13,22 +13,36 @@ const TaskListContextProvider = props => {
         {title:'Write Letter', id:4}
     ]);
 
+    const [editItem, setEditItem] = useState(null)
+
     const addTask = title =>{
         // ...(3dots),spread operator
-        setTasks([...tasks,{ title, id: uuid() }])
-    }
+        setTasks([...tasks,{ title, id: uuid() }]);
+    };
 
     const removeTask = id =>{
         // the array is filtered. It's returned only when it's id is not equal to this id.
-        setTasks(tasks.filter(task => task.id!==id))
-    }
+        setTasks(tasks.filter(task => task.id!==id));
+    };
     
-    const clearTask = title =>{
-        setTasks('')
-    }
+    // set the whole list to empty array
+    const clearList = () =>{
+        setTasks([]);
+    };
+    // to find the item tat is to be edited
+    const findItem = id =>{
+        const item = tasks.find(task=> task.id === id)
+
+        setEditItem(item);
+    };
+    // to edit the item
+    const editTask = (title,id) =>{
+        const newTasks = tasks.map(task => (task.id === id ? (title,id): task));
+        setTasks(newTasks);
+    };
 
     return(
-        <TaskListContext.Provider value={{tasks, addTask, removeTask, clearTask}}>
+        <TaskListContext.Provider value={{tasks, addTask, removeTask, clearList, findItem, editTask, editItem}}>
             {props.children}            
         </TaskListContext.Provider>
     )
