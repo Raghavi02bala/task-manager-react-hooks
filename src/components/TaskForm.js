@@ -1,7 +1,7 @@
 import React,{useContext, useState, useEffect} from 'react';
 import {TaskListContext} from "../context/TaskListContext";
 
-function TaskForm() {
+const TaskForm = () => {
     // destructuring array in js
     const { addTask, clearList, editTask, editItem } = useContext(TaskListContext);
     
