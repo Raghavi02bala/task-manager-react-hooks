@@ -21,10 +21,14 @@ const TaskListContextProvider = props => {
     const removeTask = id =>{
         // the array is filtered. It's returned only when it's id is not equal to this id.
         setTasks(tasks.filter(task => task.id!==id))
-    } 
+    }
+    
+    const clearTask = title =>{
+        setTasks('')
+    }
 
     return(
-        <TaskListContext.Provider value={{tasks, addTask, removeTask}}>
+        <TaskListContext.Provider value={{tasks, addTask, removeTask, clearTask}}>
             {props.children}            
         </TaskListContext.Provider>
     )
